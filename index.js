@@ -44,8 +44,8 @@ module.exports = plugin(function ({ addUtilities, e, theme, variants }) {
           baseColor = Color(value).hex()
           shadowColor = Color(value).darken(0.25).hex()
           highlightColor = Color(value).lighten(0.25).hex()
-          shadowGradient = Color(value).darken(0.2).hex()
-          highlightGradient = Color(value).lighten(0.2).hex()
+          shadowGradient = Color(value).darken(0.15).hex()
+          highlightGradient = Color(value).lighten(0.05).hex()
         } catch {
           console.log(
             `tailwind-neumorphism: Something went wrong generating shades of '${modifier}' (${value}). Skipping.`

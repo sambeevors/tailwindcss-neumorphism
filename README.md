@@ -33,6 +33,30 @@ module.exports = {
 }
 ```
 
+The plugin will generate 4 different utilities per color.
+
+```css
+.nm-flat-red-500 {
+  background: #D8391E;
+  box-shadow: 0.15em 0.15em 0.3em #A22B17, -0.15em -0.15em 0.3em #E6634D;
+}
+
+.nm-convex-red-500 {
+  background: linear-gradient(145deg, #B8301A, #E03E22);
+  box-shadow: 0.15em 0.15em 0.3em #A22B17, -0.15em -0.15em 0.3em #E6634D;
+}
+
+.nm-concave-red-500 {
+  background: linear-gradient(145deg, #E03E22, #B8301A);
+  box-shadow: 0.15em 0.15em 0.3em #A22B17, -0.15em -0.15em 0.3em #E6634D;
+}
+
+.nm-inset-red-500 {
+  background: #D8391E;
+  box-shadow: inset 0.15em 0.15em 0.3em #A22B17, inset -0.15em -0.15em 0.3em #E6634D;
+}
+```
+
 ### Colors
 
 By default, neumorphism classes will be generated for all of your colors. Alternatively, you can set these colors explicitly in the config.
