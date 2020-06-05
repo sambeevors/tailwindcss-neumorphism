@@ -79,7 +79,7 @@ module.exports = {
 
 ### Variants
 
-The default variants for neumorphism utilities are `responsive`, `hover` and `focus`. These can configured [like any other tailwind utility](https://tailwindcss.com/docs/configuring-variants/).
+The default variants for neumorphism utilities are `responsive`, `hover` and `focus`. These can be configured [like any other tailwind utility](https://tailwindcss.com/docs/configuring-variants/).
 
 ```js
 module.exports = {
