@@ -91,6 +91,6 @@ module.exports = plugin(function ({ addUtilities, e, theme, variants }) {
 
   addUtilities(
     utilities,
-    variants('neumorphisms', ['responsive', 'hover', 'focus'])
+    variants('neumorphism', ['responsive', 'hover', 'focus'])
   )
 })
