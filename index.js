@@ -167,7 +167,7 @@ module.exports = plugin(
               ? `.${e(`nm-inset-${colorKey}`)}`
               : `.${e(`nm-inset-${colorKey}-${sizeKey}`)}`,
             {
-              background: `linear-gradient(145deg, ${shades.highlightGradient}, ${shades.shadowGradient})`,
+              background: shades.baseColor,
               boxShadow: `inset ${size} ${size} calc(${size} * 2) ${shades.shadowColor}, inset calc(${size} * -1) calc(${size} * -1) calc(${size} * 2) ${shades.highlightColor}`,
             },
           ])
