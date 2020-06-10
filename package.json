@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-neumorphism",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Generate soft UI CSS code using tailwindcss",
   "main": "index.js",
   "files": [

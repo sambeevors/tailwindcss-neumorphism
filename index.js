@@ -28,69 +28,167 @@ const flattenColorPalette = function (colors) {
   return result
 }
 
-module.exports = plugin(function ({ addUtilities, e, theme, variants }) {
-  const pairs = _.flatten(
-    _.map(
-      flattenColorPalette(theme('neumorphism', theme('backgroundColor'))),
-      (value, modifier) => {
-        if (invalidKeywords.includes(value.toLowerCase())) return []
-        let baseColor
-        let shadowColor
-        let highlightColor
-        let shadowGradient
-        let highlightGradient
+const generateShades = (color) => {
+  try {
+    return {
+      baseColor: Color(color).hex(),
+      shadowColor: Color(color).isDark()
+        ? Color(color).darken(0.3).hex()
+        : Color(color).darken(0.25).hex(),
+      highlightColor: Color(color).isLight()
+        ? Color(color).lighten(0.2).hex()
+        : Color(color).lighten(0.25).hex(),
+      shadowGradient: Color(color).isDark()
+        ? Color(color).darken(0.2).hex()
+        : Color(color).darken(0.15).hex(),
+      highlightGradient: Color(color).isLight()
+        ? Color(color).lighten(0.1).hex()
+        : Color(color).lighten(0.05).hex(),
+    }
+  } catch {
+    return false
+  }
+}
 
-        try {
-          baseColor = Color(value).hex()
-          shadowColor = Color(value).darken(0.25).hex()
-          highlightColor = Color(value).lighten(0.25).hex()
-          shadowGradient = Color(value).darken(0.15).hex()
-          highlightGradient = Color(value).lighten(0.05).hex()
-        } catch {
+module.exports = plugin(
+  function ({ addUtilities, e, theme, variants }) {
+    const nmFlatPairs = []
+    _.forEach(
+      flattenColorPalette(theme('neumorphismColor', theme('backgroundColor'))),
+      (color, colorKey) => {
+        if (invalidKeywords.includes(color.toLowerCase())) return []
+        let shades = generateShades(color)
+        if (!shades) {
           console.log(
-            `tailwind-neumorphism: Something went wrong generating shades of '${modifier}' (${value}). Skipping.`
+            `tailwind-neumorphism: Something went wrong generating shades of '${colorKey}' (${color}). Skipping.`
           )
-          return []
+          return false
         }
 
-        return [
-          [
-            `.${e(`nm-flat-${modifier}`)}`,
+        _.forEach(theme('neumorphismSize'), (size, sizeKey) => {
+          nmFlatPairs.push([
+            sizeKey.toLowerCase() === 'default'
+              ? `.${e(`nm-flat-${colorKey}`)}`
+              : `.${e(`nm-flat-${colorKey}-${sizeKey}`)}`,
             {
-              background: baseColor,
-              boxShadow: `0.15em 0.15em 0.3em ${shadowColor}, -0.15em -0.15em 0.3em ${highlightColor};`,
+              background: shades.baseColor,
+              boxShadow: `${size} ${size} calc(${size} * 2) ${shades.shadowColor}, calc(${size} * -1) calc(${size} * -1) calc(${size} * 2) ${shades.highlightColor}`,
             },
-          ],
-          [
-            `.${e(`nm-concave-${modifier}`)}`,
-            {
-              background: `linear-gradient(145deg, ${highlightGradient}, ${shadowGradient});`,
-              boxShadow: `0.15em 0.15em 0.3em ${shadowColor}, -0.15em -0.15em 0.3em ${highlightColor};`,
-            },
-          ],
-          [
-            `.${e(`nm-convex-${modifier}`)}`,
-            {
-              background: `linear-gradient(145deg, ${shadowGradient}, ${highlightGradient});`,
-              boxShadow: `0.15em 0.15em 0.3em ${shadowColor}, -0.15em -0.15em 0.3em ${highlightColor};`,
-            },
-          ],
-          [
-            `.${e(`nm-inset-${modifier}`)}`,
-            {
-              background: baseColor,
-              boxShadow: `inset 0.15em 0.15em 0.3em ${shadowColor}, inset -0.15em -0.15em 0.3em ${highlightColor};`,
-            },
-          ],
-        ]
+          ])
+        })
       }
     )
-  )
 
-  const utilities = _.fromPairs(pairs)
+    addUtilities(
+      _.fromPairs(nmFlatPairs),
+      variants('neumorphismFlat', ['responsive', 'hover', 'focus'])
+    )
 
-  addUtilities(
-    utilities,
-    variants('neumorphism', ['responsive', 'hover', 'focus'])
-  )
-})
+    const nmConcavePairs = []
+    _.forEach(
+      flattenColorPalette(theme('neumorphismColor', theme('backgroundColor'))),
+      (color, colorKey) => {
+        if (invalidKeywords.includes(color.toLowerCase())) return []
+        let shades = generateShades(color)
+        if (!shades) {
+          console.log(
+            `tailwind-neumorphism: Something went wrong generating shades of '${colorKey}' (${color}). Skipping.`
+          )
+          return false
+        }
+
+        _.forEach(theme('neumorphismSize'), (size, sizeKey) => {
+          nmConcavePairs.push([
+            sizeKey.toLowerCase() === 'default'
+              ? `.${e(`nm-concave-${colorKey}`)}`
+              : `.${e(`nm-concave-${colorKey}-${sizeKey}`)}`,
+            {
+              background: `linear-gradient(145deg, ${shades.shadowGradient}, ${shades.highlightGradient})`,
+              boxShadow: `${size} ${size} calc(${size} * 2) ${shades.shadowColor}, calc(${size} * -1) calc(${size} * -1) calc(${size} * 2) ${shades.highlightColor}`,
+            },
+          ])
+        })
+      }
+    )
+
+    addUtilities(
+      _.fromPairs(nmConcavePairs),
+      variants('neumorphismConcave', ['responsive', 'hover', 'focus'])
+    )
+
+    const nmConvexPairs = []
+    _.forEach(
+      flattenColorPalette(theme('neumorphismColor', theme('backgroundColor'))),
+      (color, colorKey) => {
+        if (invalidKeywords.includes(color.toLowerCase())) return []
+        let shades = generateShades(color)
+        if (!shades) {
+          console.log(
+            `tailwind-neumorphism: Something went wrong generating shades of '${colorKey}' (${color}). Skipping.`
+          )
+          return false
+        }
+
+        _.forEach(theme('neumorphismSize'), (size, sizeKey) => {
+          nmConvexPairs.push([
+            sizeKey.toLowerCase() === 'default'
+              ? `.${e(`nm-convex-${colorKey}`)}`
+              : `.${e(`nm-convex-${colorKey}-${sizeKey}`)}`,
+            {
+              background: `linear-gradient(145deg, ${shades.highlightGradient}, ${shades.shadowGradient})`,
+              boxShadow: `${size} ${size} calc(${size} * 2) ${shades.shadowColor}, calc(${size} * -1) calc(${size} * -1) calc(${size} * 2) ${shades.highlightColor}`,
+            },
+          ])
+        })
+      }
+    )
+
+    addUtilities(
+      _.fromPairs(nmConvexPairs),
+      variants('neumorphismConvex', ['responsive', 'hover', 'focus'])
+    )
+
+    const nmInsetPairs = []
+    _.forEach(
+      flattenColorPalette(theme('neumorphismColor', theme('backgroundColor'))),
+      (color, colorKey) => {
+        if (invalidKeywords.includes(color.toLowerCase())) return []
+        let shades = generateShades(color)
+        if (!shades) {
+          console.log(
+            `tailwind-neumorphism: Something went wrong generating shades of '${colorKey}' (${color}). Skipping.`
+          )
+          return false
+        }
+
+        _.forEach(theme('neumorphismSize'), (size, sizeKey) => {
+          nmInsetPairs.push([
+            sizeKey.toLowerCase() === 'default'
+              ? `.${e(`nm-inset-${colorKey}`)}`
+              : `.${e(`nm-inset-${colorKey}-${sizeKey}`)}`,
+            {
+              background: `linear-gradient(145deg, ${shades.highlightGradient}, ${shades.shadowGradient})`,
+              boxShadow: `inset ${size} ${size} calc(${size} * 2) ${shades.shadowColor}, inset calc(${size} * -1) calc(${size} * -1) calc(${size} * 2) ${shades.highlightColor}`,
+            },
+          ])
+        })
+      }
+    )
+
+    addUtilities(
+      _.fromPairs(nmInsetPairs),
+      variants('neumorphismInset', ['responsive', 'hover', 'focus'])
+    )
+  },
+  {
+    theme: {
+      neumorphismSize: {
+        xs: '0.05em',
+        sm: '0.1em',
+        default: '0.2em',
+        lg: '0.4em',
+        xl: '0.8em',
+      },
+    },
+  }
+)

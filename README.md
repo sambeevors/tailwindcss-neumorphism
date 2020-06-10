@@ -27,66 +27,94 @@ Then just require it as a plugin.
 ```js
 // tailwind.config.js
 module.exports = {
-  plugins: [
-    require('tailwindcss-neumorphism')
-  ]
+  plugins: [require('tailwindcss-neumorphism')],
 }
 ```
 
-The plugin will generate 4 different utilities per color.
+The plugin will generate 4 different utilities per color, in any number of sizes (default 5).
 
 ```css
 .nm-flat-red-500 {
-  background: #D8391E;
-  box-shadow: 0.15em 0.15em 0.3em #A22B17, -0.15em -0.15em 0.3em #E6634D;
-}
-
-.nm-convex-red-500 {
-  background: linear-gradient(145deg, #B8301A, #E03E22);
-  box-shadow: 0.15em 0.15em 0.3em #A22B17, -0.15em -0.15em 0.3em #E6634D;
+  background: #F56565;
+  box-shadow: 0.2em 0.2em calc(0.2em * 2) #F01414, calc(0.2em * -1) calc(0.2em * -1) calc(0.2em * 2) #F9A6A6;
 }
 
 .nm-concave-red-500 {
-  background: linear-gradient(145deg, #E03E22, #B8301A);
-  box-shadow: 0.15em 0.15em 0.3em #A22B17, -0.15em -0.15em 0.3em #E6634D;
+  background: linear-gradient(145deg, #F23434, #F78585);
+  box-shadow: 0.2em 0.2em calc(0.2em * 2) #F01414, calc(0.2em * -1) calc(0.2em * -1) calc(0.2em * 2) #F9A6A6;
+}
+
+.nm-convex-red-500 {
+  background: linear-gradient(145deg, #F78585, #F23434);
+  box-shadow: 0.2em 0.2em calc(0.2em * 2) #F01414, calc(0.2em * -1) calc(0.2em * -1) calc(0.2em * 2) #F9A6A6;
 }
 
 .nm-inset-red-500 {
-  background: #D8391E;
-  box-shadow: inset 0.15em 0.15em 0.3em #A22B17, inset -0.15em -0.15em 0.3em #E6634D;
+  background: linear-gradient(145deg, #F78585, #F23434);
+  box-shadow: inset 0.2em 0.2em calc(0.2em * 2) #F01414, inset calc(0.2em * -1) calc(0.2em * -1) calc(0.2em * 2) #F9A6A6;
 }
+
+.nm-flat-red-500-lg {
+  background: #F56565;
+  box-shadow: 0.4em 0.4em calc(0.4em * 2) #F01414, calc(0.4em * -1) calc(0.4em * -1) calc(0.4em * 2) #F9A6A6;
+}
+
+/* ... */
 ```
 
 ### Colors
 
-By default, neumorphism classes will be generated for all of your colors. Alternatively, you can set these colors explicitly in the config.
+By default, neumorphism classes will be generated for all of your background colors. Alternatively, you can set these colors explicitly in the config under `neumorphismColor`.
 
 ```js
 module.exports = {
   // ...
   theme: {
-    neumorphism: {
+    neumorphismColor: {
       red: {
         100: '#FBEBE9',
         200: '#F5CEC7',
         // ...
-      }
-    }
-  }
+      },
+    },
+  },
+  // ...
+}
+```
+
+### Sizes
+
+You can change the sizes of the generated neumorphisms using the `neumorphismSize` property. There are 5 sizes by default, ranging from `xs` to `xl`. Setting a key of `default` will generate an unsuffixed class. Values can be generated from any valid sizing unit.
+
+```js
+module.exports = {
+  // ...
+  theme: {
+    neumorphismSize: {
+      xs: '0.05em',
+      sm: '0.1em',
+      default: '0.2em',
+      lg: '0.4em',
+      xl: '0.8em',
+    },
+  },
   // ...
 }
 ```
 
 ### Variants
 
-The default variants for neumorphism utilities are `responsive`, `hover` and `focus`. These can be configured [like any other tailwind utility](https://tailwindcss.com/docs/configuring-variants/).
+The default variants for each neumorphism utility are `responsive`, `hover` and `focus`. These can be configured [like any other tailwind utility](https://tailwindcss.com/docs/configuring-variants/), including being toggled on and off individually.
 
 ```js
 module.exports = {
   // ...
   variants: {
-    neumorphism: ['responsive']
-  }
+    neumorphismFlat: ['responsive'],
+    neumorphismConcave: false,
+    neumorphismConvex: ['responsive', 'hover'],
+    neumorphismInset: ['focus', 'active'],
+  },
   // ...
 }
 ```
