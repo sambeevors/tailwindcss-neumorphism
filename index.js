@@ -45,7 +45,7 @@ const generateShades = (color) => {
         ? Color(color).lighten(0.1).hex()
         : Color(color).lighten(0.05).hex(),
     }
-  } catch {
+  } catch(err) {
     return false
   }
 }
