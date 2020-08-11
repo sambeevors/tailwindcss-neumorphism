@@ -120,3 +120,7 @@ module.exports = {
   // ...
 }
 ```
+
+### Fork Additions
+
+Fixed the catch error and added group hover variants
