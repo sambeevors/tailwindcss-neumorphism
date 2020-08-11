@@ -81,7 +81,7 @@ module.exports = plugin(
 
     addUtilities(
       _.fromPairs(nmFlatPairs),
-      variants('neumorphismFlat', ['responsive', 'hover', 'focus'])
+      variants('neumorphismFlat', ['responsive', 'hover', 'group-hover', 'focus'])
     )
 
     const nmConcavePairs = []
@@ -113,7 +113,7 @@ module.exports = plugin(
 
     addUtilities(
       _.fromPairs(nmConcavePairs),
-      variants('neumorphismConcave', ['responsive', 'hover', 'focus'])
+      variants('neumorphismConcave', ['responsive', 'hover','group-hover', 'focus'])
     )
 
     const nmConvexPairs = []
@@ -145,7 +145,7 @@ module.exports = plugin(
 
     addUtilities(
       _.fromPairs(nmConvexPairs),
-      variants('neumorphismConvex', ['responsive', 'hover', 'focus'])
+      variants('neumorphismConvex', ['responsive', 'hover', 'group-hover', 'focus'])
     )
 
     const nmInsetPairs = []
@@ -177,7 +177,7 @@ module.exports = plugin(
 
     addUtilities(
       _.fromPairs(nmInsetPairs),
-      variants('neumorphismInset', ['responsive', 'hover', 'focus'])
+      variants('neumorphismInset', ['responsive', 'hover', 'group-hover', 'focus'])
     )
   },
   {
