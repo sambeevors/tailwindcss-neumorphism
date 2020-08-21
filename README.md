@@ -6,6 +6,11 @@
 
 [Demo](https://tailwindcss-neumorphism-demo.netlify.app/)
 
+## Fork Additions
+
+Fixed the catch error and added group hover variants
+![Original repo](https://github.com/sambeevors/tailwindcss-neumorphism)
+
 ## Why?
 
 This plugin is inspired by [neumorphism.io](https://neumorphism.io/), as well as [this article](https://uxdesign.cc/neumorphism-in-user-interfaces-b47cef3bf3a6) by Michal Malewicz which I highly recommend you check out.
@@ -120,7 +125,3 @@ module.exports = {
   // ...
 }
 ```
-
-### Fork Additions
-
-Fixed the catch error and added group hover variants
