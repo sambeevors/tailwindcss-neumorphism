@@ -28,22 +28,22 @@ const flattenColorPalette = function (colors) {
   return result
 }
 
-const generateShades = (color) => {
+const generateShades = (color, theme) => {
   try {
     return {
       baseColor: Color(color).hex(),
       shadowColor: Color(color).isDark()
-        ? Color(color).darken(0.3).hex()
-        : Color(color).darken(0.25).hex(),
+        ? Color(color).darken(theme('neumorphismShadow').shadowColor[0]).hex()
+        : Color(color).darken(theme('neumorphismShadow').shadowColor[1]).hex(),
       highlightColor: Color(color).isLight()
-        ? Color(color).lighten(0.2).hex()
-        : Color(color).lighten(0.25).hex(),
+        ? Color(color).lighten(theme('neumorphismShadow').highlightColor[1]).hex()
+        : Color(color).lighten(theme('neumorphismShadow').highlightColor[0]).hex(),
       shadowGradient: Color(color).isDark()
-        ? Color(color).darken(0.2).hex()
-        : Color(color).darken(0.15).hex(),
+        ? Color(color).darken(theme('neumorphismShadow').shadowGradient[0]).hex()
+        : Color(color).darken(theme('neumorphismShadow').shadowGradient[1]).hex(),
       highlightGradient: Color(color).isLight()
-        ? Color(color).lighten(0.1).hex()
-        : Color(color).lighten(0.05).hex(),
+        ? Color(color).lighten(theme('neumorphismShadow').highlightGradient[1]).hex()
+        : Color(color).lighten(theme('neumorphismShadow').highlightGradient[0]).hex(),
     }
   } catch {
     return false
@@ -57,7 +57,7 @@ module.exports = plugin(
       flattenColorPalette(theme('neumorphismColor', theme('backgroundColor'))),
       (color, colorKey) => {
         if (invalidKeywords.includes(color.toLowerCase())) return []
-        let shades = generateShades(color)
+        let shades = generateShades(color, theme)
         if (!shades) {
           console.log(
             `tailwind-neumorphism: Something went wrong generating shades of '${colorKey}' (${color}). Skipping.`
@@ -89,7 +89,7 @@ module.exports = plugin(
       flattenColorPalette(theme('neumorphismColor', theme('backgroundColor'))),
       (color, colorKey) => {
         if (invalidKeywords.includes(color.toLowerCase())) return []
-        let shades = generateShades(color)
+        let shades = generateShades(color, theme)
         if (!shades) {
           console.log(
             `tailwind-neumorphism: Something went wrong generating shades of '${colorKey}' (${color}). Skipping.`
@@ -121,7 +121,7 @@ module.exports = plugin(
       flattenColorPalette(theme('neumorphismColor', theme('backgroundColor'))),
       (color, colorKey) => {
         if (invalidKeywords.includes(color.toLowerCase())) return []
-        let shades = generateShades(color)
+        let shades = generateShades(color, theme)
         if (!shades) {
           console.log(
             `tailwind-neumorphism: Something went wrong generating shades of '${colorKey}' (${color}). Skipping.`
@@ -153,7 +153,7 @@ module.exports = plugin(
       flattenColorPalette(theme('neumorphismColor', theme('backgroundColor'))),
       (color, colorKey) => {
         if (invalidKeywords.includes(color.toLowerCase())) return []
-        let shades = generateShades(color)
+        let shades = generateShades(color, theme)
         if (!shades) {
           console.log(
             `tailwind-neumorphism: Something went wrong generating shades of '${colorKey}' (${color}). Skipping.`
@@ -188,6 +188,12 @@ module.exports = plugin(
         default: '0.2em',
         lg: '0.4em',
         xl: '0.8em',
+      },
+      neumorphismShadow: {
+        shadowColor: [0.3, 0.25],
+        highlightColor: [0.25, 0.2],
+        shadowGradient: [0.2, 0.15],
+        highlightGradient: [0.05, 0.1],
       },
     },
   }
