@@ -17,11 +17,11 @@ This plugin is inspired by [neumorphism.io](https://neumorphism.io/), as well as
 Install via npm or yarn
 
 ```
-npm install tailwindcss-neumorphism
+npm install tw-neumorphism
 ```
 
 ```
-yarn add tailwindcss-neumorphism
+yarn add tw-neumorphism
 ```
 
 Then just require it as a plugin.
@@ -29,7 +29,7 @@ Then just require it as a plugin.
 ```js
 // tailwind.config.js
 module.exports = {
-  plugins: [require('tailwindcss-neumorphism')],
+  plugins: [require('tw-neumorphism')],
 }
 ```
 
@@ -37,28 +37,43 @@ The plugin will generate 4 different utilities per color, in any number of sizes
 
 ```css
 .nm-flat-red-500 {
-  background: #F56565;
-  box-shadow: 0.2em 0.2em calc(0.2em * 2) #F01414, calc(0.2em * -1) calc(0.2em * -1) calc(0.2em * 2) #F9A6A6;
+  background: #f56565;
+  box-shadow: 0.2em 0.2em calc(0.2em * 2) #f01414, calc(0.2em * -1) calc(
+        0.2em * -1
+      )
+      calc(0.2em * 2) #f9a6a6;
 }
 
 .nm-concave-red-500 {
-  background: linear-gradient(145deg, #F23434, #F78585);
-  box-shadow: 0.2em 0.2em calc(0.2em * 2) #F01414, calc(0.2em * -1) calc(0.2em * -1) calc(0.2em * 2) #F9A6A6;
+  background: linear-gradient(145deg, #f23434, #f78585);
+  box-shadow: 0.2em 0.2em calc(0.2em * 2) #f01414, calc(0.2em * -1) calc(
+        0.2em * -1
+      )
+      calc(0.2em * 2) #f9a6a6;
 }
 
 .nm-convex-red-500 {
-  background: linear-gradient(145deg, #F78585, #F23434);
-  box-shadow: 0.2em 0.2em calc(0.2em * 2) #F01414, calc(0.2em * -1) calc(0.2em * -1) calc(0.2em * 2) #F9A6A6;
+  background: linear-gradient(145deg, #f78585, #f23434);
+  box-shadow: 0.2em 0.2em calc(0.2em * 2) #f01414, calc(0.2em * -1) calc(
+        0.2em * -1
+      )
+      calc(0.2em * 2) #f9a6a6;
 }
 
 .nm-inset-red-500 {
-  background: linear-gradient(145deg, #F78585, #F23434);
-  box-shadow: inset 0.2em 0.2em calc(0.2em * 2) #F01414, inset calc(0.2em * -1) calc(0.2em * -1) calc(0.2em * 2) #F9A6A6;
+  background: linear-gradient(145deg, #f78585, #f23434);
+  box-shadow: inset 0.2em 0.2em calc(0.2em * 2) #f01414, inset calc(0.2em * -1) calc(
+        0.2em * -1
+      )
+      calc(0.2em * 2) #f9a6a6;
 }
 
 .nm-flat-red-500-lg {
-  background: #F56565;
-  box-shadow: 0.4em 0.4em calc(0.4em * 2) #F01414, calc(0.4em * -1) calc(0.4em * -1) calc(0.4em * 2) #F9A6A6;
+  background: #f56565;
+  box-shadow: 0.4em 0.4em calc(0.4em * 2) #f01414, calc(0.4em * -1) calc(
+        0.4em * -1
+      )
+      calc(0.4em * 2) #f9a6a6;
 }
 
 /* ... */

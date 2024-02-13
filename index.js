@@ -36,14 +36,26 @@ const generateShades = (color, theme) => {
         ? Color(color).darken(theme('neumorphismShadow').shadowColor[0]).hex()
         : Color(color).darken(theme('neumorphismShadow').shadowColor[1]).hex(),
       highlightColor: Color(color).isLight()
-        ? Color(color).lighten(theme('neumorphismShadow').highlightColor[1]).hex()
-        : Color(color).lighten(theme('neumorphismShadow').highlightColor[0]).hex(),
+        ? Color(color)
+            .lighten(theme('neumorphismShadow').highlightColor[1])
+            .hex()
+        : Color(color)
+            .lighten(theme('neumorphismShadow').highlightColor[0])
+            .hex(),
       shadowGradient: Color(color).isDark()
-        ? Color(color).darken(theme('neumorphismShadow').shadowGradient[0]).hex()
-        : Color(color).darken(theme('neumorphismShadow').shadowGradient[1]).hex(),
+        ? Color(color)
+            .darken(theme('neumorphismShadow').shadowGradient[0])
+            .hex()
+        : Color(color)
+            .darken(theme('neumorphismShadow').shadowGradient[1])
+            .hex(),
       highlightGradient: Color(color).isLight()
-        ? Color(color).lighten(theme('neumorphismShadow').highlightGradient[1]).hex()
-        : Color(color).lighten(theme('neumorphismShadow').highlightGradient[0]).hex(),
+        ? Color(color)
+            .lighten(theme('neumorphismShadow').highlightGradient[1])
+            .hex()
+        : Color(color)
+            .lighten(theme('neumorphismShadow').highlightGradient[0])
+            .hex(),
     }
   } catch {
     return false
